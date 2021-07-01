@@ -1,0 +1,21 @@
+{
+    "name": "dev2studio/yii2-database-crud",
+    "description": "Работа с базой данных, расширенная работа с базой",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","database","crud","autocrud","generation","form"],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Dmytro Lizenko",
+            "email": "famss09@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "dev2studi\\database\\": ""
+        }
+    }
+}
