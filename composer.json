@@ -10,22 +10,15 @@
             "email": "famss09@gmail.com"
         }
     ],
+    "minimum-stability":"stable",
     "require": {
-        "yiisoft/yii2": "~2.0.0"
-    },
+        "yiisoft/yii2": "~2.0.0",
+        "php": ">=7.0",
+     },
     "autoload": {
         "psr-4": {
             "dev2studi\\database\\": ""
         }
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        },
-        {
-            "type": "path",
-            "url": "runtime/tmp-extensions/yii2-database-crud"
-        }
-    ]
+    }
+
 }
