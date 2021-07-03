@@ -208,17 +208,28 @@ foreach ($this->dataFiled as $key => $value) {
     if($value['TypeForm']=='select'){
 
         $seleced = explode(',',$value['Value']);
+        $stan = 0;
 
         
         if(isset($seleced[1])){
             $selecer = 'array(';
             foreach($seleced as $sel => $eo){
                 $sele = explode(':',$eo);
-                $selecer .='"'.$sele[0].'"=>"'.$sele[1].'",';
+                if(isset($sele[1])){
+                    $selecer .='"'.$sele[0].'"=>"'.$sele[1].'",';
+                }else{
+                    $stan=1;
+                }
+                 
             }
             $selecer .=')';
+         
         }else{
-            $selecer =$value['Value'];
+            $selecer = $value['Value'];
+        }
+
+        if($stan==1){
+             $selecer = $value['Value'];
         }
 
         
