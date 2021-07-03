@@ -34,11 +34,17 @@ class Form extends Model
         return array(
             '-'=>'-',
             'text' => 'Текстовое',
-            'color' => 'Цвет',
-            'file' => 'Файл',
-            'number' => 'Числовое', 
+            'textarea' => 'Большой текст',
+            'textareaCkeditor' => 'Редактор текста',
+            'number' => 'Числовое',
             'select' => 'Список',
+            'file' => 'Файл',
             'checkbox' => 'Чекбокс',
+            'radiobutton' => 'Радио кнопка',
+            'color' => 'Цвет',
+            'date' => 'Дата',
+            'datetime' => 'Дата и время',               
+             
         );
     }
 
@@ -163,6 +169,8 @@ $this->params["breadcrumbs"][] = $this->title;
 
 $fileContent = '<?php
 use yii\helpers\Html;
+use kartik\file\FileInput;
+
 
 $this->title = "Обновления '.$this->name.': " . $model->name;
 $this->params["breadcrumbs"][] = ["label" => "'.$this->name.'", "url" => ["index"]];
@@ -232,12 +240,16 @@ foreach ($this->dataFiled as $key => $value) {
              $selecer = $value['Value'];
         }
 
-        
-
-   
-
+        if(empty($selecer) OR $selecer==''){
+            $selecer = "array('0'=>'Нет','1'=>'Да')";
+        }
 
         $form .='<?=$form->field($model, "'.$key.'")->dropDownList('.$selecer.');?>'."\n";
+
+    }elseif($value['TypeForm']=='textarea'){
+        $form .= '<?=$form->field($model, "'.$key.'")->textarea();?>';
+    }elseif($value['TypeForm']=='file'){
+        $form .= '<?=$form->field($model, "'.$key.'")->widget(FileInput::classname());?>';
     }else{
         $form .='<?=$form->field($model, "'.$key.'");?>'."\n";
     }
@@ -245,15 +257,19 @@ foreach ($this->dataFiled as $key => $value) {
 
    }
 }
-
+ 
 
 $fileContent = '<?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\file\FileInput;
+
 
 ?>
 
-<?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin([
+        "options" => ["enctype" => "multipart/form-data"]
+    ]); ?>
 
 '.$form.'
 
