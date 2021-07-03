@@ -14,7 +14,9 @@
         "yiisoft/yii2": "~2.0.0",
         "kartik-v/yii2-widget-fileinput": "@dev",
         "kartik-v/yii2-widget-datepicker": "dev-master",
-        "kartik-v/yii2-widget-datetimepicker": "dev-master"
+        "kartik-v/yii2-widget-datetimepicker": "dev-master",
+        "kartik-v/yii2-editors": "dev-master",
+        "kartik-v/yii2-widget-colorinput": "dev-master"
      },
    
 

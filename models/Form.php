@@ -247,8 +247,37 @@ foreach ($this->dataFiled as $key => $value) {
         $form .='<?=$form->field($model, "'.$key.'")->dropDownList('.$selecer.');?>'."\n";
 
     }elseif($value['TypeForm']=='textarea'){
-        $form .= '<?=$form->field($model, "'.$key.'")->textarea();?>';
-    }elseif($value['TypeForm']=='file'){
+        $form .= '<?=$form->field($model, "'.$key.'")->textarea();?>'."\n";
+    }elseif($value['TypeForm']=='date'){
+         $form .= '<? echo "<label class="control-label">'.$value['Labels'].'</label>";
+        echo DatePicker::widget([
+          "name" =>  "'.$key.'",
+          "pluginOptions" => [
+             "todayHighlight"=>true,
+             "format" => "dd-M-yyyy"
+          ]
+        ]); ?>'."\n";
+    }elseif($value['TypeForm']=='datetime'){
+        $form .= '<? echo "<label class="control-label">'.$value['Labels'].'</label>";
+        echo DateTimePicker::widget([
+          "name" =>  "'.$key.'",
+          "type" => DateTimePicker::TYPE_COMPONENT_APPEND,
+          "pluginOptions" => [
+             "autoclose"=>true,
+             "format" => "dd-M-yyyy HH:ii P"
+          ]
+        ]); ?>'."\n";
+
+     }elseif($value['TypeForm']=='color'){
+        $form .= '<? echo "<label class="control-label">'.$value['Labels'].'</label>";
+        echo ColorInput::widget([
+        "name" =>  "'.$key.'",
+        "options" => ["placeholder" => "Выберете цвет"]
+         ]); ?>'."\n";
+
+     }elseif($value['TypeForm']=='textareaCkeditor'){
+        $form .= '<? echo $form->field($model, "'.$key.'")->widget(Summernote::class); ?>'."\n";
+     }elseif($value['TypeForm']=='file'){
         $form .= '<?=$form->field($model, "'.$key.'")->widget(FileInput::classname());?>';
     }else{
         $form .='<?=$form->field($model, "'.$key.'");?>'."\n";
@@ -257,12 +286,18 @@ foreach ($this->dataFiled as $key => $value) {
 
    }
 }
- 
+
+
 
 $fileContent = '<?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\file\FileInput;
+use kartik\date\DatePicker;
+use kartik\datetime\DateTimePicker;
+use kartik\color\ColorInput;
+use kartik\editors\Summernote;
+
 
 
 ?>
