@@ -1,6 +1,6 @@
 <?php
 
-namespace dev2studi\database\models;
+namespace dev2studio\database\models;
 
 use Yii;
 use yii\base\Model;
@@ -39,8 +39,9 @@ class Form extends Model
             'number' => 'Числовое',
             'select' => 'Список',
             'file' => 'Файл',
-            'checkbox' => 'Чекбокс',
-            'radiobutton' => 'Радио кнопка',
+            'checkbox' => 'Чекбокс лист',
+            'checkbox_one' => 'Чекбокс',
+            'radiobutton' => 'Радио cписок',
             'color' => 'Цвет',
             'date' => 'Дата',
             'datetime' => 'Дата и время',               
@@ -218,7 +219,6 @@ foreach ($this->dataFiled as $key => $value) {
         $seleced = explode(',',$value['Value']);
         $stan = 0;
 
-        
         if(isset($seleced[1])){
             $selecer = 'array(';
             foreach($seleced as $sel => $eo){
@@ -231,7 +231,6 @@ foreach ($this->dataFiled as $key => $value) {
                  
             }
             $selecer .=')';
-         
         }else{
             $selecer = $value['Value'];
         }
@@ -246,34 +245,97 @@ foreach ($this->dataFiled as $key => $value) {
 
         $form .='<?=$form->field($model, "'.$key.'")->dropDownList('.$selecer.');?>'."\n";
 
+    }elseif($value['TypeForm']=='radiobutton'){
+
+        $seleced = explode(',',$value['Value']);
+        $stan = 0;
+
+        if(isset($seleced[1])){
+            $selecer = 'array(';
+            foreach($seleced as $sel => $eo){
+                $sele = explode(':',$eo);
+                if(isset($sele[1])){
+                    $selecer .='"'.$sele[0].'"=>"'.$sele[1].'",';
+                }else{
+                    $stan=1;
+                }
+                 
+            }
+            $selecer .=')';
+        }else{
+            $selecer = $value['Value'];
+        }
+
+        if($stan==1){
+             $selecer = $value['Value'];
+        }
+
+        if(empty($selecer) OR $selecer==''){
+            $selecer = "array('0'=>'Нет','1'=>'Да')";
+        }
+
+        $form .='<?=$form->field($model, "'.$key.'")->radioList('.$selecer.');?>'."\n";
+
+    }elseif($value['TypeForm']=='checkbox_one'){
+         $form .='<?=$form->field($model, "'.$key.'")->checkbox(["label" => "'.$value['Labels'].'","value" => "'.$value['Value'].'"])->label(false);?>'."\n";
+    }elseif($value['TypeForm']=='checkbox'){
+        $seleced = explode(',',$value['Value']);
+        $stan = 0;
+
+        if(isset($seleced[1])){
+            $selecer = 'array(';
+            foreach($seleced as $sel => $eo){
+                $sele = explode(':',$eo);
+                if(isset($sele[1])){
+                    $selecer .='"'.$sele[0].'"=>"'.$sele[1].'",';
+                }else{
+                    $stan=1;
+                }
+                 
+            }
+            $selecer .=')';
+        }else{
+            $selecer = $value['Value'];
+        }
+
+        if($stan==1){
+             $selecer = $value['Value'];
+        }
+
+        if(empty($selecer) OR $selecer==''){
+            $selecer = "array('0'=>'Нет','1'=>'Да')";
+        }
+
+        $form .='<?=$form->field($model, "'.$key.'")->checkboxList('.$selecer.');?>'."\n";
+
     }elseif($value['TypeForm']=='textarea'){
         $form .= '<?=$form->field($model, "'.$key.'")->textarea();?>'."\n";
     }elseif($value['TypeForm']=='date'){
-         $form .= '<? echo "<label class="control-label">'.$value['Labels'].'</label>";
-        echo DatePicker::widget([
-          "name" =>  "'.$key.'",
-          "pluginOptions" => [
-             "todayHighlight"=>true,
-             "format" => "dd-M-yyyy"
-          ]
-        ]); ?>'."\n";
+         $form .= '<? echo "<label class='."'".'control-label'."'".'>'.$value['Labels'].'</label>";
+   echo DatePicker::widget([
+        "name" => "'.$this->nameModel.'['.$key.']",
+        "pluginOptions" => [
+                "todayHighlight"=>true,
+                "format" => "dd-M-yyyy"
+        ]
+   ]); ?>'."\n";
     }elseif($value['TypeForm']=='datetime'){
-        $form .= '<? echo "<label class="control-label">'.$value['Labels'].'</label>";
-        echo DateTimePicker::widget([
-          "name" =>  "'.$key.'",
-          "type" => DateTimePicker::TYPE_COMPONENT_APPEND,
-          "pluginOptions" => [
-             "autoclose"=>true,
-             "format" => "dd-M-yyyy HH:ii P"
-          ]
-        ]); ?>'."\n";
+        $form .= '<? echo "<label class='."'".'control-label'."'".'>'.$value['Labels'].'</label>";
+   echo DateTimePicker::widget([
+        "name" => "'.$this->nameModel.'['.$key.']",
+        "type" => DateTimePicker::TYPE_COMPONENT_APPEND,
+        "pluginOptions" => [
+                "autoclose"=>true,
+                "format" => "dd-M-yyyy HH:ii P"
+        ]
+   ]); ?>'."\n";
 
      }elseif($value['TypeForm']=='color'){
-        $form .= '<? echo "<label class="control-label">'.$value['Labels'].'</label>";
-        echo ColorInput::widget([
-        "name" =>  "'.$key.'",
+        $form .= '<? echo "<label class='."'".'control-label'."'".'>'.$value['Labels'].'</label>";
+   echo ColorInput::widget([
+        "name" =>  "'.$this->nameModel.'['.$key.']",
         "options" => ["placeholder" => "Выберете цвет"]
-         ]); ?>'."\n";
+   ]); ?>'."\n";
 
      }elseif($value['TypeForm']=='textareaCkeditor'){
         $form .= '<? echo $form->field($model, "'.$key.'")->widget(Summernote::class); ?>'."\n";

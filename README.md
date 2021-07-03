@@ -28,4 +28,4 @@ Usage
 Once the extension is installed, simply use it in your code by  :
 
 ```php
-<?= \dev2studi\database\AutoloadExample::widget(); ?>
+<?= \dev2studio\database\D2SCrud::widget(); ?>

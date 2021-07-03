@@ -22,7 +22,12 @@ use yii\helpers\Html;
     <a class="nav-link" data-toggle="tab" href="#characteristics">Настройки</a>
   </li>
   <li class="nav-item">
-    <button type="submit" class="btn">Создать</button>
+    <button type="submit" class="btn btn-light" style="    border-radius: 5px 5px 0px 0px;
+    font-size: 16px;
+    padding: 9px 35px;
+    font-weight: bold;
+    background: white;
+    border: 1px solid #d2d2d2;">Создать</button>
   </li>
 </ul>
 <div class="tab-content">
@@ -53,22 +58,19 @@ use yii\helpers\Html;
 </table>
   </div>
   <div class="tab-pane fade" id="characteristics">
-  	<div class="col-md-12"> 
+  	<div class="col-md-12" style="background: #f5f5f5;">
+  		<div class="objects"> 
    <?=$form->field($model, 'name')->label('Название таблицы');?>
 	<?=$form->field($model, 'modeldir')->label('Путь к модели');?>
-	<p>
-		<code>
+	<code>
 			/modules/admin/models/
 		</code>
-	</p>
 	<?=$form->field($model, 'makedir')->label('Путь создания');?>
-	<p>
 		<code>
 			/modules/admin/
 		</code>
-	</p>
 	<?=$form->field($model, 'pjax_is')->dropDownList(array(0=>'Нет',1=>'Да'))->label('Использовать PJAX');?>
-  </div>
+  </div></div>
   
 </div></div>
 
@@ -83,6 +85,16 @@ use yii\helpers\Html;
 <style>
 	.table_s .form-group{
     width: 100%;
+    margin: 0px;
+	}
+
+	.objects{
+		    width: 100%;
+    float: left;
+	}
+
+	.objects .form-group{
+		    width: 100%;
     margin: 0px;
 	}
 </style>
