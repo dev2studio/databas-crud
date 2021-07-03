@@ -7,7 +7,7 @@ use yii\data\ArrayDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
-use dev2studi\database\models\Form;
+use dev2studio\database\models\Form;
 /**
  * This is just an example.
  */
