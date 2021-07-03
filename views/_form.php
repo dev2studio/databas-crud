@@ -1,5 +1,5 @@
 <?
-use dev2studi\database\models\Form;
+use dev2studio\database\models\Form;
 use yii\widgets\{Pjax,ActiveForm};
 use yii\helpers\Html;
  
