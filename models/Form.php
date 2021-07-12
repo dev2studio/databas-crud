@@ -316,7 +316,7 @@ foreach ($this->dataFiled as $key => $value) {
         "name" => "'.$this->nameModel.'['.$key.']",
         "pluginOptions" => [
                 "todayHighlight"=>true,
-                "format" => "dd-M-yyyy"
+                "format" => "yyyy-mm-dd"
         ]
    ]); ?>'."\n";
     }elseif($value['TypeForm']=='datetime'){
@@ -326,7 +326,7 @@ foreach ($this->dataFiled as $key => $value) {
         "type" => DateTimePicker::TYPE_COMPONENT_APPEND,
         "pluginOptions" => [
                 "autoclose"=>true,
-                "format" => "dd-M-yyyy HH:ii P"
+                "format" => "yyyy-mm-dd H:i:s"
         ]
    ]); ?>'."\n";
 
@@ -477,6 +477,13 @@ class '.$modelName.' extends Controller
         ]);
     }
 
+
+   public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
 
     protected function findModel($id)
     {
